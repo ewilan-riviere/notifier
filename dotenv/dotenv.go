@@ -2,9 +2,10 @@ package dotenv
 
 import (
 	"log"
-	server "notifier/src/server"
 	"os"
 	"strings"
+
+	server "github.com/ewilan-riviere/notifier/server"
 
 	"github.com/joho/godotenv"
 )

@@ -3,8 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"notifier/src/dotenv"
 	"os"
+
+	"github.com/ewilan-riviere/notifier/dotenv"
 )
 
 func main() {
