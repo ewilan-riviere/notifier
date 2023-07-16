@@ -8,6 +8,12 @@
 [license-src]: https://img.shields.io/github/license/kiwilan/php-rss.svg?style=flat-square&colorA=18181B&colorB=00ADD8
 [license-href]: https://github.com/kiwilan/php-rss/blob/main/README.md
 
+## Install
+
+```bash
+go install github.com/ewilan-riviere/notifier@latest
+```
+
 ## Local
 
 ```bash
