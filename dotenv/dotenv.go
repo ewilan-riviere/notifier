@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	server "github.com/ewilan-riviere/notifier/server"
+	server "notifier/server"
 
 	"github.com/joho/godotenv"
 )

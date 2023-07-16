@@ -10,20 +10,34 @@
 
 ## Install
 
+Create `.env` file.
+
 ```bash
-go install github.com/ewilan-riviere/notifier@latest
+cp .env.example .env
 ```
 
-## Local
+Add your Discord and Slack webhooks (you can add multiple servers or leave it blank)
+
+```yaml
+DISCORD_SERVERS=default:XXXXXXXXX:XXXXXXXXX,custom:XXXXXXXXX:XXXXXXXXX
+SLACK_SERVERS=default:XXXXXXXXX:XXXXXXXXX:XXXXXXXXX,custom:XXXXXXXXX:XXXXXXXXX:XXXXXXXXX
+```
+
+Install dependencies.
 
 ```bash
 go get github.com/joho/godotenv
 ```
 
-## Build
+Build the script.
 
 ```bash
 go build -o notifier
+```
+
+You can use `./notifier` to run the script.
+
+```bash
 ./notifier hello
 ```
 

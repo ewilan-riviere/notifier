@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ewilan-riviere/notifier/dotenv"
+	"notifier/dotenv"
 )
 
 func main() {

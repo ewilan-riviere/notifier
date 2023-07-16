@@ -1,6 +1,4 @@
-module github.com/ewilan-riviere/notifier
-
-// module notifier
+module notifier
 
 go 1.20
 
