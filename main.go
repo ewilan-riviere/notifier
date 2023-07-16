@@ -32,6 +32,14 @@ func main() {
 }
 
 func path() {
+	// script path
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+	exPath := filepath.Dir(ex)
+	fmt.Println(exPath)
+
 	cwd, err := os.Getwd()
 	if err != nil {
 		fmt.Println("Error:", err)
