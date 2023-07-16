@@ -11,7 +11,7 @@ import (
 )
 
 func Handle(path string) server.Server {
-	err := godotenv.Load(path)
+	err := godotenv.Load(path + "/.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
