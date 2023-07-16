@@ -41,6 +41,24 @@ You can use `./notifier` to run the script.
 ./notifier hello
 ```
 
+## Global usage
+
+```bash
+sudo rm -f /usr/local/bin/notifier
+```
+
+```bash
+sudo ln -s /home/ewilan/notifier/notifier /usr/local/bin
+```
+
+```bash
+sudo chmod +x /usr/local/bin/notifier/notifier
+```
+
+```bash
+notifier hello
+```
+
 ## Test
 
 Check with `curl` if the webhook is working.

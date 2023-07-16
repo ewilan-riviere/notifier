@@ -4,29 +4,47 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"notifier/dotenv"
 )
 
 func main() {
 	fmt.Println("Welcome to Notifier!")
-	fmt.Println("Example: `notifier -name=default -service=discord 'hello !'`")
+	path()
+	// fmt.Println("Example: `notifier -name=default -service=discord 'hello !'`")
 
-	service := flag.String("service", "discord", "the service to send the message to: 'discord'|'slack'|'all'")
-	name := flag.String("name", "default", "the name of the server")
+	// service := flag.String("service", "discord", "the service to send the message to: 'discord'|'slack'|'all'")
+	// name := flag.String("name", "default", "the name of the server")
 
-	flag.Parse()
+	// flag.Parse()
 
-	help()
+	// help()
 
-	if len(flag.Args()) < 1 {
-		fmt.Println("Please provide a message.")
+	// if len(flag.Args()) < 1 {
+	// 	fmt.Println("Please provide a message.")
+	// 	os.Exit(1)
+	// }
+
+	// content := flag.Args()[0]
+	// fmt.Println("Message:", content)
+	// send(*name, *service, content)
+}
+
+func path() {
+	cwd, err := os.Getwd()
+	if err != nil {
+		fmt.Println("Error:", err)
 		os.Exit(1)
 	}
 
-	content := flag.Args()[0]
-	fmt.Println("Message:", content)
-	send(*name, *service, content)
+	realPath, err := filepath.EvalSymlinks(cwd)
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
+
+	fmt.Println("Real path:", realPath)
 }
 
 func help() {
