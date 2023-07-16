@@ -43,8 +43,6 @@ func path() string {
 		os.Exit(1)
 	}
 
-	fmt.Println("Real path:", realPath)
-
 	return realPath
 }
 
