@@ -11,27 +11,26 @@ import (
 
 func main() {
 	fmt.Println("Welcome to Notifier!")
-	path()
-	// fmt.Println("Example: `notifier -name=default -service=discord 'hello !'`")
+	fmt.Println("Example: `notifier -name=default -service=discord 'hello !'`")
 
-	// service := flag.String("service", "discord", "the service to send the message to: 'discord'|'slack'|'all'")
-	// name := flag.String("name", "default", "the name of the server")
+	service := flag.String("service", "discord", "the service to send the message to: 'discord'|'slack'|'all'")
+	name := flag.String("name", "default", "the name of the server")
 
-	// flag.Parse()
+	flag.Parse()
 
-	// help()
+	help()
 
-	// if len(flag.Args()) < 1 {
-	// 	fmt.Println("Please provide a message.")
-	// 	os.Exit(1)
-	// }
+	if len(flag.Args()) < 1 {
+		fmt.Println("Please provide a message.")
+		os.Exit(1)
+	}
 
-	// content := flag.Args()[0]
-	// fmt.Println("Message:", content)
-	// send(*name, *service, content)
+	content := flag.Args()[0]
+	fmt.Println("Message:", content)
+	send(*name, *service, content)
 }
 
-func path() {
+func path() string {
 	ex, err := os.Executable()
 	if err != nil {
 		panic(err)
@@ -45,6 +44,8 @@ func path() {
 	}
 
 	fmt.Println("Real path:", realPath)
+
+	return realPath
 }
 
 func help() {
@@ -66,7 +67,7 @@ func help() {
 }
 
 func send(name string, service string, content string) {
-	server := dotenv.Handle()
+	server := dotenv.Handle(path())
 
 	var sended bool = false
 	for i := 0; i < len(server.Items); i++ {

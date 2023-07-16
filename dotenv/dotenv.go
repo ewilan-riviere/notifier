@@ -10,8 +10,8 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func Handle() server.Server {
-	err := godotenv.Load()
+func Handle(path string) server.Server {
+	err := godotenv.Load(path)
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
