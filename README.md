@@ -48,11 +48,11 @@ sudo rm -f /usr/local/bin/notifier
 ```
 
 ```bash
-sudo ln -s /home/ewilan/notifier/notifier /usr/local/bin
+sudo ln -s /home/kiwilan/notifier/notifier /usr/local/bin
 ```
 
 ```bash
-sudo chmod +x /usr/local/bin/notifier/notifier
+sudo chmod +x /usr/local/bin/notifier
 ```
 
 ```bash
