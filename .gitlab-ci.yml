@@ -24,6 +24,6 @@ deploy-job:
       cd ~/notifier &&
       git pull &&
       go build -o notifier &&
-      notifier '$CI_PROJECT_TITLE deployed'"
+      notifier discord '$CI_PROJECT_TITLE deployed'"
   only:
     - main
