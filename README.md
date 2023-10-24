@@ -58,10 +58,6 @@ notifier slack "Hello World" https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXX
 >
 > Available only if you install from source.
 
-> [!IMPORTANT]
-> The main branch is for v1.0-beta, which rewrites to the new [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), check [#250](https://github.com/antfu/eslint-config/pull/250) for more details.
-> Create `.env` file.
-
 ```bash
 cp .env.example .env
 ```
