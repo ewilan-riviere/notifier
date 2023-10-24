@@ -9,6 +9,10 @@ A simple notifier CLI for Discord and Slack with Webhook. Powered by [Go][go-ver
 - `discord`: send a message to Discord (from CLI or `.env` file)
 - `slack`: send a message to Slack (from CLI or `.env` file)
 
+> [!NOTE]
+>
+> To use Webhooks with Discord, check [Discord documentation](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) and for Slack, check [Slack documentation](https://api.slack.com/messaging/webhooks).
+
 ## Install
 
 ### From Go
@@ -16,7 +20,7 @@ A simple notifier CLI for Discord and Slack with Webhook. Powered by [Go][go-ver
 With this install, you cannot use `.env` file
 
 ```bash
-go install github.com/ewilan-riviere/notifier
+go install github.com/ewilan-riviere/notifier@latest
 ```
 
 ### From source
@@ -44,7 +48,7 @@ sudo chmod +x /usr/local/bin/notifier
 ### As library
 
 ```bash
-go get github.com/ewilan-riviere/notifier
+go get github.com/ewilan-riviere/notifier@latest
 ```
 
 ## Usage
