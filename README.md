@@ -101,7 +101,7 @@ notifier slack "Hello World"
 
 You have to import `notify` package.
 
-````go
+```go
 import "github.com/ewilan-riviere/notifier/notify"
 
 func main() {
@@ -125,7 +125,7 @@ You can create a script, for example `notify`, on your server, on `/usr/local/bi
 
 notifier discord "$1" https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX
 notifier slack "$1" https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX
-````
+```
 
 Allow execution of this script.
 
