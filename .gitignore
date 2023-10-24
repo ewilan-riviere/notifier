@@ -3,3 +3,4 @@ notifier
 .DS_Store
 coverage.out
 archive
+.env.testing

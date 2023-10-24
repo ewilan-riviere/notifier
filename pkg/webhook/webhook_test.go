@@ -1,13 +1,19 @@
 package webhook
 
 import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
 	"testing"
 )
 
 func TestWebhook(t *testing.T) {
+	items := readDotenv("../../.env.testing")
+
 	webhook := Webhook{
-		DiscordWebhook: "https://discord.com/api/webhooks/1100099112159957112/TCxcWwGibz_DMtK1M4OOMOHaV62mP9fbKYkotr9x1ZicJOv9JC2NtO9yN4jpNDs3Od3D",
-		SlackWebhook:   "https://hooks.slack.com/services/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",
+		DiscordWebhook: strings.Split(items[0], "=")[1],
+		SlackWebhook:   strings.Split(items[1], "=")[1],
 	}
 
 	discord := webhook.SendDiscord("Hello from Discord")
@@ -20,4 +26,28 @@ func TestWebhook(t *testing.T) {
 	if !slack {
 		t.Errorf("Slack webhook failed")
 	}
+}
+
+func readDotenv(path string) []string {
+	readFile, err := os.Open(path)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	fileScanner := bufio.NewScanner(readFile)
+
+	fileScanner.Split(bufio.ScanLines)
+
+	items := []string{}
+	for fileScanner.Scan() {
+		items = append(items, fileScanner.Text())
+	}
+
+	readFile.Close()
+
+	for _, eachline := range items {
+		fmt.Println(eachline)
+	}
+
+	return items
 }

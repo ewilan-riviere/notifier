@@ -24,7 +24,7 @@ func main() {
 				return
 			}
 
-			dotenv := dotenv.Make()
+			dotenv := dotenv.Make(".env")
 			webhook := webhook.Make()
 			webhook.SetDiscord(dotenv.DiscordWebhook)
 			webhook.SetSlack(dotenv.SlackWebhook)

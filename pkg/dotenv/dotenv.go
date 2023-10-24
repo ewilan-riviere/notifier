@@ -14,11 +14,12 @@ type Dotenv struct {
 	SlackWebhook   string
 }
 
-func Make() Dotenv {
+func Make(name string) Dotenv {
 	path := dotenvPath()
-	err := godotenv.Load(path + "/.env")
+	dotenvPath := path + "/" + name
+	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatal("Error loading " + dotenvPath + " file")
 	}
 
 	return Dotenv{
