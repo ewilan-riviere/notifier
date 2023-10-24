@@ -54,7 +54,7 @@ notifier slack "Hello World" https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXX
 
 ### From `.env` credentials
 
-> [!IMPORTANT]\
+> [!IMPORTANT]
 >
 > Available only if you install from source.
 
@@ -73,7 +73,7 @@ SLACK_WEBHOOK=XXXXXXXXX/XXXXXXXXX/XXXXXXXXX
 
 Send a message to Discord or Slack, with `.env` file.
 
-> [!NOTE]\
+> [!NOTE]
 >
 > If you use `.env` file, you can omit the webhook argument, it will be automatically used.
 
