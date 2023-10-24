@@ -51,9 +51,9 @@ sudo chmod +x /usr/local/bin/notifier
 go get github.com/ewilan-riviere/notifier@latest
 ```
 
-## Usage
+## Usage (CLI)
 
-### From CLI arguments
+### With webhook URL
 
 Send a message to Discord or Slack.
 
@@ -62,7 +62,14 @@ notifier discord "Hello World" https://discord.com/api/webhooks/XXXXXXXXX/XXXXXX
 notifier slack "Hello World" https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX
 ```
 
-### From `.env` credentials
+You can use only channel
+
+```bash
+notifier discord "Hello World" XXXXXXXXX/XXXXXXXXX
+notifier slack "Hello World" XXXXXXXXX/XXXXXXXXX/XXXXXXXXX
+```
+
+### With `.env` file
 
 > [!IMPORTANT]
 >
@@ -90,6 +97,25 @@ notifier discord "Hello World"
 notifier slack "Hello World"
 ```
 
+## Usage (library)
+
+You have to import `notify` package.
+
+````go
+import (
+	"github.com/ewilan-riviere/notifier/notify"
+)
+
+func main() {
+  notify.Notifier("To discord", "https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX")
+	notify.Notifier("To slack", "https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX")
+
+  // Works with channel only
+  notify.Notifier("To discord", "XXXXXXXXX/XXXXXXXXX") // Will send to Discord
+  notify.Notifier("To slack", "XXXXXXXXX/XXXXXXXXX/XXXXXXXXX") // Will send to Slack
+}
+
+
 ## Example with GitLab CI
 
 You can install locally `notifier` and use it in your GitLab CI. The better solution is to use `.env` file, with installation from source. But in this example, we use webhook URL.
@@ -101,7 +127,7 @@ You can create a script, for example `notify`, on your server, on `/usr/local/bi
 
 notifier discord "$1" https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX
 notifier slack "$1" https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX
-```
+````
 
 Allow execution of this script.
 

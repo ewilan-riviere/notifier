@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func ReadFile(path string) []string {
@@ -24,4 +25,17 @@ func ReadFile(path string) []string {
 	readFile.Close()
 
 	return items
+}
+
+func ReadDotenv(path string, k string) string {
+	items := ReadFile(path)
+	dotenvItems := map[string]string{}
+
+	for _, item := range items {
+		key := strings.Split(item, "=")[0]
+		value := strings.Split(item, "=")[1]
+		dotenvItems[key] = value
+	}
+
+	return dotenvItems[k]
 }

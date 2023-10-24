@@ -1,8 +1,46 @@
+// Package notifier is a simple notifier CLI for Discord and Slack with Webhook.
+//
+// Examples/readme can be found on the GitHub page at https://github.com/ewilan-riviere/notifier
+//
+// If you want to use it as CLI, you can install it with:
+//
+// ```bash
+// go install github.com/ewilan-riviere/notifier
+// ```
+//
+// Then you can use it like this:
+//
+// ```bash
+// notifier discord "Hello World" https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX
+// notifier slack "Hello World" https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX
+// ```
+//
+// If you want to use it as library, you can install it with:
+//
+// ```bash
+// go get github.com/ewilan-riviere/notifier
+// ```
+//
+// Then you can use it like this:
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/ewilan-riviere/notifier/notify"
+//
+// )
+//
+//	func main() {
+//		notify.Notifier("Hello World", "https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX")
+//		notify.Notifier("Hello World", "https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX")
+//	}
+//
+// ```
 package main
 
 import (
-	"strings"
-
 	"github.com/ewilan-riviere/notifier/pkg/dotenv"
 	"github.com/ewilan-riviere/notifier/pkg/webhook"
 	"github.com/spf13/cobra"
@@ -57,22 +95,8 @@ For Slack, webhook have this formate: https://hooks.slack.com/services/XXXXXXXXX
 		},
 	}
 
-	var rootCmd = &cobra.Command{Use: "app"}
+	var rootCmd = &cobra.Command{Use: "notifier"}
 	rootCmd.AddCommand(cmdDiscord)
 	rootCmd.AddCommand(cmdSlack)
 	rootCmd.Execute()
-}
-
-func Notifier(msg string, url string) {
-	webhook := webhook.Make()
-
-	if strings.Contains(url, "discord") {
-		webhook := webhook.SetDiscord(url)
-		webhook.SendDiscord(msg)
-	}
-
-	if strings.Contains(url, "slack") {
-		webhook := webhook.SetSlack(url)
-		webhook.SendSlack(msg)
-	}
 }
