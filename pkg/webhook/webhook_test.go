@@ -1,15 +1,14 @@
 package webhook
 
 import (
-	"bufio"
-	"fmt"
-	"os"
 	"strings"
 	"testing"
+
+	"github.com/ewilan-riviere/notifier/pkg/utils"
 )
 
 func TestWebhook(t *testing.T) {
-	items := readDotenv("../../.env.testing")
+	items := utils.ReadFile("../../.env.testing")
 
 	webhook := Webhook{
 		DiscordWebhook: strings.Split(items[0], "=")[1],
@@ -26,28 +25,4 @@ func TestWebhook(t *testing.T) {
 	if !slack {
 		t.Errorf("Slack webhook failed")
 	}
-}
-
-func readDotenv(path string) []string {
-	readFile, err := os.Open(path)
-
-	if err != nil {
-		fmt.Println(err)
-	}
-	fileScanner := bufio.NewScanner(readFile)
-
-	fileScanner.Split(bufio.ScanLines)
-
-	items := []string{}
-	for fileScanner.Scan() {
-		items = append(items, fileScanner.Text())
-	}
-
-	readFile.Close()
-
-	for _, eachline := range items {
-		fmt.Println(eachline)
-	}
-
-	return items
 }
