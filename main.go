@@ -4,40 +4,27 @@
 //
 // If you want to use it as CLI, you can install it with:
 //
-// ```bash
-// go install github.com/ewilan-riviere/notifier
-// ```
+//	go install github.com/ewilan-riviere/notifier
 //
 // Then you can use it like this:
 //
-// ```bash
-// notifier discord "Hello World" https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX
-// notifier slack "Hello World" https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX
-// ```
+//	notifier discord "Hello World" https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX
+//	notifier slack "Hello World" https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX
 //
 // If you want to use it as library, you can install it with:
 //
-// ```bash
-// go get github.com/ewilan-riviere/notifier
-// ```
+//	go get github.com/ewilan-riviere/notifier
 //
 // Then you can use it like this:
 //
-// ```go
-// package main
+//	package main
 //
-// import (
-//
-//	"github.com/ewilan-riviere/notifier/notify"
-//
-// )
+//	import "github.com/ewilan-riviere/notifier/notify"
 //
 //	func main() {
 //		notify.Notifier("Hello World", "https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX")
 //		notify.Notifier("Hello World", "https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX")
 //	}
-//
-// ```
 package main
 
 import (
