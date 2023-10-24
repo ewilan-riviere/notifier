@@ -12,6 +12,6 @@ func TestWebhook(t *testing.T) {
 	discordWebhook := strings.Split(items[0], "=")[1]
 	slackWebhook := strings.Split(items[1], "=")[1]
 
-	notifier("test", discordWebhook)
-	notifier("test", slackWebhook)
+	Notifier("test", discordWebhook)
+	Notifier("test", slackWebhook)
 }

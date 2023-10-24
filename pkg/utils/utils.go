@@ -23,9 +23,5 @@ func ReadFile(path string) []string {
 
 	readFile.Close()
 
-	for _, eachline := range items {
-		fmt.Println(eachline)
-	}
-
 	return items
 }

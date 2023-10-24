@@ -50,8 +50,5 @@ func dotenvPath() string {
 		os.Exit(1)
 	}
 
-	fmt.Print(exPath + "\n")
-	fmt.Print(realPath + "\n")
-
 	return realPath
 }
