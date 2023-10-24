@@ -102,9 +102,7 @@ notifier slack "Hello World"
 You have to import `notify` package.
 
 ````go
-import (
-	"github.com/ewilan-riviere/notifier/notify"
-)
+import "github.com/ewilan-riviere/notifier/notify"
 
 func main() {
   notify.Notifier("To discord", "https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX")
