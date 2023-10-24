@@ -30,6 +30,10 @@ func Make() Webhook {
 }
 
 func (w Webhook) SetDiscord(webhook string) Webhook {
+	if webhook == "" {
+		return w
+	}
+
 	if !strings.HasPrefix(webhook, "http") {
 		webhook = "https://discord.com/api/webhooks/" + webhook
 	}
@@ -40,6 +44,10 @@ func (w Webhook) SetDiscord(webhook string) Webhook {
 }
 
 func (w Webhook) SetSlack(webhook string) Webhook {
+	if webhook == "" {
+		return w
+	}
+
 	if !strings.HasPrefix(webhook, "http") {
 		webhook = "https://hooks.slack.com/services/" + webhook
 	}
@@ -59,7 +67,7 @@ func (w Webhook) SendSlack(msg string) bool {
 
 func send(url string, payload interface{}, service string) bool {
 	if url == "" {
-		fmt.Println("Error: please check your " + service + " webhook URL " + url + " and try again")
+		fmt.Println("Error: Webhook URL is empty")
 		return false
 	}
 

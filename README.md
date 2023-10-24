@@ -6,23 +6,31 @@
 
 A simple notifier CLI for Discord and Slack with Webhook. Powered by [Go][go-version-href].
 
-- `webhook`: send a message to Discord and Slack from CLI arguments.
-- `send`: send a message to Discord and Slack from `.env` credentials.
+- `discord`: send a message to Discord (from CLI or `.env` file)
+- `slack`: send a message to Slack (from CLI or `.env` file)
 
 ## Install
 
-From Go (you cannot use `send` command with this method, you need to use `webhook` command)
+### From Go
+
+With this install, you cannot use `.env` file
 
 ```bash
 go get github.com/ewilan-riviere/notifier
 ```
 
-From source
+### From source
 
 ```bash
 git clone https://github.com/ewilan-riviere/notifier.git
 cd notifier
 go build -o notifier
+```
+
+Create `.env` file and add your Discord and Slack webhooks, you can leave it blank.
+
+```bash
+cp .env.example .env
 ```
 
 Create symlink to use `notifier` everywhere
@@ -40,13 +48,13 @@ sudo chmod +x /usr/local/bin/notifier
 Send a message to Discord or Slack.
 
 ```bash
-notifier webhook https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX "Hello World"
-notifier webhook https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX "Hello World"
+notifier discord "Hello World" https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX
+notifier slack "Hello World" https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX
 ```
 
 ### From `.env` credentials
 
-> [IMPORTANT]
+> [!IMPORTANT]\
 >
 > Available only if you install from source.
 
@@ -63,11 +71,15 @@ DISCORD_WEBHOOK=XXXXXXXXX/XXXXXXXXX
 SLACK_WEBHOOK=XXXXXXXXX/XXXXXXXXX/XXXXXXXXX
 ```
 
-Send a message to Discord or Slack.
+Send a message to Discord or Slack, with `.env` file.
+
+> [!NOTE]\
+>
+> If you use `.env` file, you can omit the webhook argument, it will be automatically used.
 
 ```bash
-notifier send discord "Hello World"
-notifier send slack "Hello World"
+notifier discord "Hello World"
+notifier slack "Hello World"
 ```
 
 ## Example with GitLab CI

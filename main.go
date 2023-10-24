@@ -1,66 +1,62 @@
 package main
 
 import (
-	"fmt"
-	"strings"
-
 	"github.com/ewilan-riviere/notifier/pkg/dotenv"
 	"github.com/ewilan-riviere/notifier/pkg/webhook"
 	"github.com/spf13/cobra"
 )
 
 func main() {
-	var cmdSend = &cobra.Command{
-		Use:   "send [service to send] [message to send]",
-		Short: "Send a message to a service (Discord or Slack) from .env",
-		Long:  `Send a message to a service (Discord or Slack) from .env. You can use 'discord' or 'slack' as argument.`,
-		Args:  cobra.MinimumNArgs(2),
+	var cmdDiscord = &cobra.Command{
+		Use:   "discord [message to send] [optional: webhook URL]",
+		Short: "Send a message to a Discord from .env or webhook URL",
+		Long: `Send a message to a Discord from .env or webhook URL.
+Webhook URL is optional if you have a .env file with DISCORD_WEBHOOK.
+For Discord, webhook have this formate: https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX`,
+		Args: cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			service := args[0]
-			message := args[1]
+			msg := args[0]
 
-			if service != "discord" && service != "slack" {
-				fmt.Println("Error: service not found, please use 'discord' or 'slack'")
-				return
+			url := ""
+			if len(args) > 1 {
+				url = args[1]
+			} else {
+				dotenv := dotenv.Make(".env")
+				url = dotenv.DiscordWebhook
 			}
 
-			dotenv := dotenv.Make(".env")
 			webhook := webhook.Make()
-			webhook.SetDiscord(dotenv.DiscordWebhook)
-			webhook.SetSlack(dotenv.SlackWebhook)
-
-			if service == "discord" {
-				webhook.SendDiscord(message)
-			}
-			if service == "slack" {
-				webhook.SendSlack(message)
-			}
+			webhook = webhook.SetDiscord(url)
+			webhook.SendDiscord(msg)
 		},
 	}
 
-	var cmdSendWebhook = &cobra.Command{
-		Use:   "webhook [webhook] [message to send]",
-		Short: "Send a message to a service (Discord or Slack) from webhook URL",
-		Long:  `Send a message to a service (Discord or Slack) from webhook URL.`,
-		Args:  cobra.MinimumNArgs(2),
+	var cmdSlack = &cobra.Command{
+		Use:   "slack [message to send] [optional: webhook URL]",
+		Short: "Send a message to a Slack from .env or webhook URL",
+		Long: `Send a message to a Slack from .env or webhook URL.
+Webhook URL is optional if you have a .env file with SLACK_WEBHOOK.
+For Slack, webhook have this formate: https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX`,
+		Args: cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			url := args[0]
-			message := args[1]
+			msg := args[0]
+
+			url := ""
+			if len(args) > 1 {
+				url = args[1]
+			} else {
+				dotenv := dotenv.Make(".env")
+				url = dotenv.SlackWebhook
+			}
 
 			webhook := webhook.Make()
-			if strings.Contains(url, "discord") {
-				webhook := webhook.SetDiscord(url)
-				webhook.SendDiscord(message)
-			}
-			if strings.Contains(url, "slack") {
-				webhook := webhook.SetSlack(url)
-				webhook.SendSlack(message)
-			}
+			webhook = webhook.SetSlack(url)
+			webhook.SendSlack(msg)
 		},
 	}
 
 	var rootCmd = &cobra.Command{Use: "app"}
-	rootCmd.AddCommand(cmdSend)
-	rootCmd.AddCommand(cmdSendWebhook)
+	rootCmd.AddCommand(cmdDiscord)
+	rootCmd.AddCommand(cmdSlack)
 	rootCmd.Execute()
 }
