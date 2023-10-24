@@ -60,8 +60,7 @@ notifier slack "Hello World" https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXX
 
 > [!IMPORTANT]
 > The main branch is for v1.0-beta, which rewrites to the new [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), check [#250](https://github.com/antfu/eslint-config/pull/250) for more details.
-
-Create `.env` file.
+> Create `.env` file.
 
 ```bash
 cp .env.example .env
@@ -94,8 +93,8 @@ You can create a script, for example `notify`, on your server, on `/usr/local/bi
 ```bash
 #!/bin/bash
 
-notifier webhook https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX "$1"
-notifier webhook https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX "$1"
+notifier discord "$1" https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX
+notifier slack "$1" https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX
 ```
 
 Allow execution of this script.
