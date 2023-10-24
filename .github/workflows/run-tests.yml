@@ -20,3 +20,9 @@ jobs:
           touch .env.testing
           echo DISCORD_WEBHOOK=${{ secrets.DISCORD_WEBHOOK }} >> .env.testing
           echo SLACK_WEBHOOK=${{ secrets.SLACK_WEBHOOK }} >> .env.testing
+      - name: Install dependencies
+        run: |
+          go get -v -t -d ./...
+      - name: Run tests
+        run: |
+          go test -v ./...
