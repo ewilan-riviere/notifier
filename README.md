@@ -112,7 +112,7 @@ func main() {
   notify.Notifier("To discord", "XXXXXXXXX/XXXXXXXXX") // Will send to Discord
   notify.Notifier("To slack", "XXXXXXXXX/XXXXXXXXX/XXXXXXXXX") // Will send to Slack
 }
-
+```
 
 ## Example with GitLab CI
 
