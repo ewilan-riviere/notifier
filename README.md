@@ -82,7 +82,7 @@ notifier slack "Hello World"
 
 ## Example with GitLab CI
 
-You can install locally `notifier` and use it in your GitLab CI. The better solution is to use `.env` file, with installation from source. But in this example, we use `webhook` command.
+You can install locally `notifier` and use it in your GitLab CI. The better solution is to use `.env` file, with installation from source. But in this example, we use webhook URL.
 
 You can create a script, for example `notify`, on your server, on `/usr/local/bin` for example to use it everywhere.
 
