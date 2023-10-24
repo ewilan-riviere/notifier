@@ -4,3 +4,4 @@ notifier
 coverage.out
 archive
 .env.testing
+testing.md

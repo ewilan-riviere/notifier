@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -15,9 +16,13 @@ type Dotenv struct {
 }
 
 func Make(name string) Dotenv {
-	path := dotenvPath()
+	basePath := dotenvPath() // `/Users/ewilan/Workspace/notifier/notifier`
+	split := strings.Split(basePath, "/")
+	path := strings.Join(split[:len(split)-1], "/") // `/Users/ewilan/Workspace/notifier`
+
 	dotenvPath := path + "/" + name
-	err := godotenv.Load()
+
+	err := godotenv.Load(dotenvPath)
 	if err != nil {
 		log.Fatal("Error loading " + dotenvPath + " file")
 	}
@@ -39,5 +44,14 @@ func dotenvPath() string {
 	}
 	exPath := filepath.Dir(ex)
 
-	return exPath
+	realPath, err := filepath.EvalSymlinks(exPath + "/notifier")
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
+
+	fmt.Print(exPath + "\n")
+	fmt.Print(realPath + "\n")
+
+	return realPath
 }
