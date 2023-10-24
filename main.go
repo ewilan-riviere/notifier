@@ -1,92 +1,66 @@
 package main
 
 import (
-	"flag"
 	"fmt"
-	"os"
-	"path/filepath"
+	"strings"
 
-	"notifier/dotenv"
+	"github.com/ewilan-riviere/notifier/pkg/dotenv"
+	"github.com/ewilan-riviere/notifier/pkg/webhook"
+	"github.com/spf13/cobra"
 )
 
 func main() {
-	fmt.Println("Welcome to Notifier!")
-	fmt.Println("Example: `notifier -name=default -service=discord 'hello !'`")
+	var cmdSend = &cobra.Command{
+		Use:   "send [service to send] [message to send]",
+		Short: "Send a message to a service (Discord or Slack) from .env",
+		Long:  `Send a message to a service (Discord or Slack) from .env. You can use 'discord' or 'slack' as argument.`,
+		Args:  cobra.MinimumNArgs(2),
+		Run: func(cmd *cobra.Command, args []string) {
+			service := args[0]
+			message := args[1]
 
-	service := flag.String("service", "discord", "the service to send the message to: 'discord'|'slack'|'all'")
-	name := flag.String("name", "default", "the name of the server")
-
-	flag.Parse()
-
-	help()
-
-	if len(flag.Args()) < 1 {
-		fmt.Println("Please provide a message.")
-		os.Exit(1)
-	}
-
-	content := flag.Args()[0]
-	fmt.Println("Message:", content)
-	send(*name, *service, content)
-}
-
-func path() string {
-	ex, err := os.Executable()
-	if err != nil {
-		panic(err)
-	}
-	exPath := filepath.Dir(ex)
-
-	realPath, err := filepath.EvalSymlinks(exPath)
-	if err != nil {
-		fmt.Println("Error:", err)
-		os.Exit(1)
-	}
-
-	return realPath
-}
-
-func help() {
-	fmt.Println()
-	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "Usage: %s [OPTIONS] MESSAGE\n", os.Args[0])
-		fmt.Fprintln(os.Stderr, "Send a message to services: Discord, Slack")
-		fmt.Fprintln(os.Stderr, "")
-		fmt.Fprintln(os.Stderr, "Options:")
-		flag.PrintDefaults()
-	}
-
-	flag.Parse()
-
-	if flag.NArg() < 1 {
-		flag.Usage()
-		os.Exit(1)
-	}
-}
-
-func send(name string, service string, content string) {
-	server := dotenv.Handle(path())
-
-	var sended bool = false
-	for i := 0; i < len(server.Items); i++ {
-		el := server.Items[i]
-
-		if string(el.Type) == service {
-			if el.Name == name {
-				el.Send(content)
-				sended = true
+			if service != "discord" && service != "slack" {
+				fmt.Println("Error: service not found, please use 'discord' or 'slack'")
+				return
 			}
-		} else if service == "all" {
-			if el.Name == name {
-				el.Send(content)
-				sended = true
+
+			dotenv := dotenv.Make()
+			webhook := webhook.Make()
+			webhook.SetDiscord(dotenv.DiscordWebhook)
+			webhook.SetSlack(dotenv.SlackWebhook)
+
+			if service == "discord" {
+				webhook.SendDiscord(message)
 			}
-		}
+			if service == "slack" {
+				webhook.SendSlack(message)
+			}
+		},
 	}
 
-	if !sended {
-		fmt.Println("Not found.")
-		fmt.Println("Name:", name)
-		fmt.Println("Service:", service)
+	var cmdSendWebhook = &cobra.Command{
+		Use:   "webhook [webhook] [message to send]",
+		Short: "Send a message to a service (Discord or Slack) from webhook URL",
+		Long:  `Send a message to a service (Discord or Slack) from webhook URL.`,
+		Args:  cobra.MinimumNArgs(2),
+		Run: func(cmd *cobra.Command, args []string) {
+			url := args[0]
+			message := args[1]
+
+			webhook := webhook.Make()
+			if strings.Contains(url, "discord") {
+				webhook := webhook.SetDiscord(url)
+				webhook.SendDiscord(message)
+			}
+			if strings.Contains(url, "slack") {
+				webhook := webhook.SetSlack(url)
+				webhook.SendSlack(message)
+			}
+		},
 	}
+
+	var rootCmd = &cobra.Command{Use: "app"}
+	rootCmd.AddCommand(cmdSend)
+	rootCmd.AddCommand(cmdSendWebhook)
+	rootCmd.Execute()
 }

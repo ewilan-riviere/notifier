@@ -1,3 +1,5 @@
 notifier
 .env
 .DS_Store
+coverage.out
+archive
