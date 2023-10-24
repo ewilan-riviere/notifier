@@ -16,7 +16,7 @@ A simple notifier CLI for Discord and Slack with Webhook. Powered by [Go][go-ver
 With this install, you cannot use `.env` file
 
 ```bash
-go get github.com/ewilan-riviere/notifier
+go install github.com/ewilan-riviere/notifier
 ```
 
 ### From source
@@ -39,6 +39,12 @@ Create symlink to use `notifier` everywhere
 sudo rm -f /usr/local/bin/notifier
 sudo ln -s ~/notifier/notifier /usr/local/bin
 sudo chmod +x /usr/local/bin/notifier
+```
+
+### As library
+
+```bash
+go get github.com/ewilan-riviere/notifier
 ```
 
 ## Usage
