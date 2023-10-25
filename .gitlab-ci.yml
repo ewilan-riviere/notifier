@@ -21,7 +21,7 @@ deploy-job:
   script:
     - ssh $SSH_USER@$SSH_IP "
       . ~/.zshrc &&
-      cd ~/notifier &&
+      cd ~/scripts/notifier &&
       git pull &&
       go build -o notifier &&
       notifier discord '$CI_PROJECT_TITLE deployed'"
